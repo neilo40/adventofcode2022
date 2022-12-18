@@ -108,6 +108,7 @@ func part2() {
 		cubes[x][y][z] = true
 	}
 
+	// need to get dimensions of cube so we know where to start and end searching
 	minX := math.MaxInt
 	maxX := 0
 	minY := math.MaxInt
@@ -140,6 +141,7 @@ func part2() {
 		}
 	}
 
+	// fully encloses the set of cubes but is a finite search space
 	seen := make(map[int]map[int]map[int]bool)
 	for x := minX - 1; x <= maxX+1; x++ {
 		seen[x] = make(map[int]map[int]bool)
@@ -181,7 +183,7 @@ func getSurfaces(cubes map[int]map[int]map[int]bool, seen map[int]map[int]map[in
 		if xok && yok && zok {
 			surfaces++
 		} else {
-			// empty space, if not seen before, descend into it
+			// empty space, and not seen before, descend into it
 			if !seen[nx][ny][nz] {
 				surfaces += getSurfaces(cubes, seen, nx, ny, nz)
 			}
